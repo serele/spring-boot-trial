@@ -35,7 +35,7 @@ create type state as enum ('Active', 'Discontinued');
 create table items (
 	id serial primary key,
 	description varchar(20) not null,
-	price money not null,
+	price numeric(20, 2) not null,
 	state state not null default 'Active',	
 	creation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP	
 );
