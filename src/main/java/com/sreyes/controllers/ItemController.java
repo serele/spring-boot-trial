@@ -1,6 +1,9 @@
 package com.sreyes.controllers;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -10,12 +13,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sreyes.entities.ItemEntity;
 import com.sreyes.exceptions.RecordNotFoundException;
+import com.sreyes.model.State;
 import com.sreyes.services.ItemService;
 
 	
@@ -43,24 +49,29 @@ public class ItemController {
 	}
 	
 	
-	@PostMapping("/{id}")
-	public ResponseEntity<ItemEntity> createOrUpdateItem(@RequestBody String description, 
-														 @RequestBody double price) 
+	@PostMapping("/add")
+	public ResponseEntity<ItemEntity> createItem(@Valid @RequestBody ItemEntity item) 
 																throws RecordNotFoundException {
+
+		ItemEntity created = service.createItem(item);
 		
-		ItemEntity item = new ItemEntity();
-		item.setDescription(description);
-		item.setPrice(price);
+		return new ResponseEntity<ItemEntity>(created, new HttpHeaders(), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<ItemEntity> updateItem(@PathVariable("id") int id, 
+												 @Valid @RequestBody ItemEntity item) 
+																throws RecordNotFoundException {		
 		
-		ItemEntity updated = service.createOrUpdateItem(item);
+		ItemEntity updated = service.updateItem(item);
 		
-		return new ResponseEntity<ItemEntity>(updated, new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<ItemEntity>(updated, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/del/{id}")
 	public HttpStatus deleteItemById(@PathVariable("id") int id) throws RecordNotFoundException {
 		service.deleteItemById(id);
-		return HttpStatus.FORBIDDEN;
+		return HttpStatus.OK;
 	}
 }

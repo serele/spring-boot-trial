@@ -39,8 +39,15 @@ public class ItemService {
 	}
 	
 	
-	public ItemEntity createOrUpdateItem(ItemEntity entity) throws RecordNotFoundException {
+	public ItemEntity createItem(ItemEntity entity) throws RecordNotFoundException {
 	
+		entity = repository.save(entity);
+		
+		return entity;
+	}
+	
+	public ItemEntity updateItem(ItemEntity entity) throws RecordNotFoundException {
+		
 		Optional<ItemEntity> item = repository.findById(entity.getId());
 		
 		if(item.isPresent()) {
@@ -55,14 +62,10 @@ public class ItemService {
 			
 			return newEntity;			
 		}
-		else {
-			entity = repository.save(entity);
-			
-			return entity;
-		}
+		else
+			throw new RecordNotFoundException("No item record exists for given id");
 	}
-	
-	
+		
 	public void deleteItemById(int id) throws RecordNotFoundException {
 		
 		Optional<ItemEntity> item = repository.findById(id);

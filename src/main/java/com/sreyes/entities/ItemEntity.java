@@ -4,14 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sreyes.model.State;
 
 @Entity
 @Table(name="items")
@@ -21,16 +18,16 @@ public class ItemEntity {
 	private int id;	
 	private String description;	
 	private double price;	
-	private State state;	
+	private String state;	
 	private Date creation_date;	
-	private String creator;
+	private int creator;
 
 	public ItemEntity() {
 		
 	}
 	
 	
-	public ItemEntity(String description, double price, State state, Date creation_date, String creator) {
+	public ItemEntity(String description, double price, String state, Date creation_date, int creator) {
 		super();
 		this.description = description;
 		this.price = price;
@@ -64,17 +61,16 @@ public class ItemEntity {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "state")
-	public State getState() {
+	    
+	@Column(name = "state" )
+	public String getState() {
 		return state;
 	}
-	public void setState(State state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
-	@Column(name = "creatio_date")
+	@Column(name = "creation_date")
 	public Date getCreation_date() {
 		return creation_date;
 	}
@@ -83,10 +79,10 @@ public class ItemEntity {
 	}
 
 	@Column(name = "creator")
-	public String getCreator() {
+	public int getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+	public void setCreator(int creator) {
 		this.creator = creator;
 	}
 	
