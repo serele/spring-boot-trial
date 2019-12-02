@@ -1,4 +1,4 @@
-package com.sreyes.entities;
+package com.sreyes.model;
 
 import java.util.Date;
 

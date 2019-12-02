@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sreyes.entities.ItemEntity;
 import com.sreyes.exceptions.RecordNotFoundException;
+import com.sreyes.model.ItemEntity;
 import com.sreyes.model.State;
 import com.sreyes.services.ItemService;
 

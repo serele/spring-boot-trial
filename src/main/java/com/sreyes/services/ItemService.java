@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sreyes.entities.ItemEntity;
 import com.sreyes.exceptions.RecordNotFoundException;
+import com.sreyes.model.ItemEntity;
 import com.sreyes.repositories.ItemRepository;
 
 @Service
